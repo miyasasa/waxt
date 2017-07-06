@@ -13,7 +13,7 @@ const dir = ".waxt"
 
 type Store struct {
 	path string
-	db   *bolt.DB
+	Db   *bolt.DB
 }
 
 func NewStore(db string) *Store {
@@ -59,14 +59,14 @@ func (s *Store) Open() error {
 	if err != nil {
 		return err
 	}
-	s.db = db
+	s.Db = db
 
 	return nil
 }
 
 func (s *Store) Close() error {
-	if s.db != nil {
-		s.db.Close()
+	if s.Db != nil {
+		s.Db.Close()
 	}
 	return nil
 }

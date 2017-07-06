@@ -5,10 +5,11 @@ import (
 )
 
 type Environment struct {
-	Db *store.Store
+	Store *store.Store
 }
 
 func InitEnvironment() *Environment {
 	st := store.NewStore("waxt.db")
-	return &Environment{Db: st}
+	st.Open()
+	return &Environment{Store: st}
 }
