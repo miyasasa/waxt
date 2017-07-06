@@ -1,4 +1,4 @@
-package protoservice
+package proto
 
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"

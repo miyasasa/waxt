@@ -6,7 +6,7 @@ import (
 
 "golang.org/x/net/context"
 "google.golang.org/grpc"
-pb "Waxt/protoservice"
+pb "Waxt/proto"
 "google.golang.org/grpc/reflection"
 	"fmt"
 )
