@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	address = "localhost:1903"
+	address = "localhost:1901"
 )
 
 func save(client pb.WaxtClient) {
