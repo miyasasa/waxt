@@ -3,11 +3,17 @@ syntax = "proto3";
 package protoservice;
 
 service Waxt {
-  rpc Save(Customer) returns (Customer) {}
+    rpc Save(Customer) returns (Customer) {};
+    rpc Get(CustomerId) returns (Customer){};
 }
 
 message Customer {
-  string name = 1;
-  string email = 2;
-  string phone = 3;
+    int32 id = 1;
+    string name = 2;
+    string email = 3;
+    string phone = 4;
+}
+
+message CustomerId {
+    int32 id = 1;
 }

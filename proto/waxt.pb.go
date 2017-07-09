@@ -20,11 +20,12 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-// The request message containing the user's name.
+// The message containing the user's info.
 type Customer struct {
-	Name  string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	Email string `protobuf:"bytes,2,opt,email=email" json:"email,omitempty"`
-	Phone string `protobuf:"bytes,3,opt,phone=phone" json:"phone,omitempty"`
+	Id int32 `protobuf:"varint,1,req,name=id" json:"id,omitempty"`
+	Name  string `protobuf:"bytes,2,opt,name=name" json:"name,omitempty"`
+	Email string `protobuf:"bytes,3,opt,name=email" json:"email,omitempty"`
+	Phone string `protobuf:"bytes,4,opt,name=phone" json:"phone,omitempty"`
 }
 
 func (c *Customer) Reset()                    { *c = Customer{} }
@@ -32,8 +33,19 @@ func (c *Customer) String() string            { return proto.CompactTextString(c
 func (*Customer) ProtoMessage()               {}
 func (*Customer) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
+// The message containing the user's id.
+type CustomerId struct {
+	Id int32 `protobuf:"varint,1,req,name=id" json:"id,omitempty"`
+}
+
+func (c *CustomerId) Reset()                    { *c = CustomerId{} }
+func (c *CustomerId) String() string            { return proto.CompactTextString(c) }
+func (*CustomerId) ProtoMessage()               {}
+func (*CustomerId) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+
 func init() {
 	proto.RegisterType((*Customer)(nil), "protoservice.Customer")
+	proto.RegisterType((*CustomerId)(nil), "protoservice.CustomerId")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.

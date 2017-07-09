@@ -15,7 +15,7 @@ const (
 
 func save(client pb.WaxtClient) {
 
-	customer := &pb.Customer{Name: "yasin", Phone: "5416504615", Email: "vyasinw@gmail.com"}
+	customer := &pb.Customer{Id: int32(1), Name: "yasin", Phone: "5416504615", Email: "vyasinw@gmail.com"}
 
 	response, err := client.Save(context.Background(), customer)
 
