@@ -2,12 +2,10 @@ syntax = "proto3";
 
 package protoservice;
 
-// The greeting service definition.
 service Waxt {
   rpc Save(Customer) returns (Customer) {}
 }
 
-// The request message
 message Customer {
   string name = 1;
   string email = 2;
