@@ -13,7 +13,7 @@ const (
 	address = "localhost:1901"
 )
 
-func save(client pb.WaxtClient) {
+func Save(client pb.WaxtClient) {
 
 	customer := &pb.Customer{Id: int32(1), Name: "yasin", Phone: "5416504615", Email: "vyasinw@gmail.com"}
 
@@ -29,10 +29,10 @@ func save(client pb.WaxtClient) {
 }
 
 func Get(client pb.WaxtClient) {
-	response, err := client.Get(context.Background(), &pb.CustomerId{Id: int32(2)})
+	response, err := client.Get(context.Background(), &pb.CustomerId{Id: int32(1)})
 
 	if err != nil {
-		log.Fatalf("Could not saved customer: %v", err)
+		log.Fatalf("Could not get customer: %v", err)
 	}
 
 	customer, _ := json.Marshal(response)

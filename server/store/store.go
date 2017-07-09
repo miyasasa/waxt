@@ -59,7 +59,17 @@ func (s *Store) Open() error {
 	if err != nil {
 		return err
 	}
+
 	s.Db = db
+
+	// Initialize all the required buckets.
+	if err := s.Db.Update(func(tx *bolt.Tx) error {
+		tx.CreateBucketIfNotExists([]byte("Customer"))
+		return nil
+	}); err != nil {
+		s.Close()
+		return err
+	}
 
 	return nil
 }

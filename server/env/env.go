@@ -5,11 +5,12 @@ import (
 )
 
 type Environment struct {
-	Store *store.Store
+	CustomerBucket string
+	Store          *store.Store
 }
 
 func InitEnvironment() *Environment {
 	st := store.NewStore("waxt.db")
 	st.Open()
-	return &Environment{Store: st}
+	return &Environment{CustomerBucket: "Customer", Store: st}
 }
