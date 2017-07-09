@@ -25,7 +25,19 @@ func save(client pb.WaxtClient) {
 
 	saved, _ := json.Marshal(response)
 
-	log.Printf("Saved customer %v", string(saved))
+	log.Printf("Save customer %v", string(saved))
+}
+
+func Get(client pb.WaxtClient) {
+	response, err := client.Get(context.Background(), &pb.CustomerId{Id: int32(2)})
+
+	if err != nil {
+		log.Fatalf("Could not saved customer: %v", err)
+	}
+
+	customer, _ := json.Marshal(response)
+
+	log.Printf("Get customer %v", string(customer))
 }
 
 func main() {
@@ -38,5 +50,5 @@ func main() {
 
 	client := pb.NewWaxtClient(conn)
 
-	save(client)
+	Get(client)
 }

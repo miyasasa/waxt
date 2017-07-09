@@ -60,6 +60,7 @@ const _ = grpc.SupportPackageIsVersion4
 
 type WaxtClient interface {
 	Save(ctx context.Context, in *Customer, opts ...grpc.CallOption) (*Customer, error)
+	Get(ctx context.Context, in *CustomerId, opts ...grpc.CallOption) (*Customer, error)
 }
 
 type waxtClient struct {
@@ -79,10 +80,20 @@ func (c *waxtClient) Save(ctx context.Context, in *Customer, opts ...grpc.CallOp
 	return out, nil
 }
 
+func (c *waxtClient) Get(ctx context.Context, in *CustomerId, opts ...grpc.CallOption) (*Customer, error) {
+	out := new(Customer)
+	err := grpc.Invoke(ctx, "/protoservice.Waxt/Get", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Greeter service
 
 type WaxtServer interface {
 	Save(context.Context, *Customer) (*Customer, error)
+	Get(context.Context, *CustomerId) (*Customer, error)
 }
 
 func RegisterWaxtServer(s *grpc.Server, srv WaxtServer) {
@@ -96,6 +107,10 @@ var _waxt_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Save",
 			Handler:    _Waxt_Save_Handler,
+		},
+		{
+			MethodName: "Get",
+			Handler:    _Waxt_Get_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -120,6 +135,23 @@ func _Waxt_Save_Handler(srv interface{}, ctx context.Context, dec func(interface
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Waxt_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CustomerId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WaxtServer).Get(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/protoservice.Waxt/Get",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WaxtServer).Get(ctx, req.(*CustomerId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
 func init() { proto.RegisterFile("protoservice.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
