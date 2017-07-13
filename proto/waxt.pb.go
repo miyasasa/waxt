@@ -22,10 +22,10 @@ const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 // The message containing the user's info.
 type Customer struct {
-	Id int32 `protobuf:"varint,1,req,name=id" json:"id,omitempty"`
-	Name  string `protobuf:"bytes,2,opt,name=name" json:"name,omitempty"`
-	Email string `protobuf:"bytes,3,opt,name=email" json:"email,omitempty"`
-	Phone string `protobuf:"bytes,4,opt,name=phone" json:"phone,omitempty"`
+	Id    int32 `protobuf:"varint,1,req,name=id" json:"id,omitempty" storm:"id,increment"`
+	Name  string `protobuf:"bytes,2,opt,name=name" json:"name,omitempty"   storm:"index"`
+	Email string `protobuf:"bytes,3,opt,name=email" json:"email,omitempty" storm:"index,unique"`
+	Phone string `protobuf:"bytes,4,opt,name=phone" json:"phone,omitempty" storm:"index,unique"`
 }
 
 func (c *Customer) Reset()                    { *c = Customer{} }

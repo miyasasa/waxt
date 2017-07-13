@@ -1,19 +1,20 @@
 package store
 
 import (
-	"github.com/boltdb/bolt"
 	"os/user"
 	"path/filepath"
 	"os"
 	"fmt"
 	"time"
+	"github.com/asdine/storm"
+	"github.com/boltdb/bolt"
 )
 
 const dir = ".waxt"
 
 type Store struct {
 	path string
-	Db   *bolt.DB
+	Db   *storm.DB
 }
 
 func NewStore(db string) *Store {
@@ -54,22 +55,13 @@ func (s *Store) Open() error {
 		os.Mkdir(path(), 0755)
 	}
 
-	db, err := bolt.Open(s.path, 0755, &bolt.Options{Timeout: 1 * time.Second})
+	db, err := storm.Open(s.path, storm.BoltOptions(0600, &bolt.Options{Timeout: 1 * time.Second}))
 
 	if err != nil {
 		return err
 	}
 
 	s.Db = db
-
-	// Initialize all the required buckets.
-	if err := s.Db.Update(func(tx *bolt.Tx) error {
-		tx.CreateBucketIfNotExists([]byte("Customer"))
-		return nil
-	}); err != nil {
-		s.Close()
-		return err
-	}
 
 	return nil
 }
